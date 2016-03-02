@@ -6,7 +6,7 @@ def make_trigram(text):
     while len(text.split(" ")) > 2:
         split_words = text.split(" ", 3)
         our_keys = (split_words[0], split_words[1])
-        our_value = [split_words[2]]
+        our_value = split_words[2]
         if our_keys not in tri_dict:
             tri_dict[our_keys] = [our_value]
         else:
