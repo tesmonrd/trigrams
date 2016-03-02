@@ -3,6 +3,7 @@ import io
 
 def make_trigram(text):
     tri_dict = {}
+    text = text.replace("\n", " ")
     while len(text.split(" ")) > 2:
         split_words = text.split(" ", 3)
         our_keys = (split_words[0], split_words[1])
@@ -15,7 +16,8 @@ def make_trigram(text):
             tri_dict[our_keys] = new_value
         length = len(split_words[0]) + 1
         text = text[length:]
-    print tri_dict
+    for k, v in tri_dict.items():
+        print k, v
 
 
 def main(path):
