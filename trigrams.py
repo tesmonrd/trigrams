@@ -1,5 +1,6 @@
 import io
 import random
+import sys
 
 
 def make_trigram(text):
@@ -21,6 +22,7 @@ def make_trigram(text):
 
 
 def make_story(dictionary, num_words):
+    """Use dictionary to create story that is num_words long."""
     story = []
     rand_key = random.choice(dictionary.keys())
     rand_value = random.choice(dictionary[rand_key])
@@ -50,4 +52,8 @@ def main(path, num_words):
     print random_story
 
 
-main('test.txt', 100)
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print "You didn't give us a file and a number"
+        sys.exit(1)
+    main(sys.argv[1], int(sys.argv[2]))
