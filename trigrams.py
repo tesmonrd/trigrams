@@ -1,9 +1,10 @@
 import io
+import random
 
 
 def make_trigram(text):
+    """Make a dictionary of trigrams."""
     tri_dict = {}
-    text = text.replace("\n", " ")
     while len(text.split(" ")) > 2:
         split_words = text.split(" ", 3)
         our_keys = (split_words[0], split_words[1])
@@ -16,14 +17,37 @@ def make_trigram(text):
             tri_dict[our_keys] = new_value
         length = len(split_words[0]) + 1
         text = text[length:]
-    for k, v in tri_dict.items():
-        print k, v
+    return tri_dict
 
 
-def main(path):
+def make_story(dictionary, num_words):
+    story = []
+    rand_key = random.choice(dictionary.keys())
+    rand_value = random.choice(dictionary[rand_key])
+    first_stringify = str(rand_key[0])
+    second_stringify = str(rand_key[1])
+    story.extend([first_stringify, second_stringify, rand_value])
+    while len(story) < num_words:
+        last_words = (story[-2], story[-1])
+        if last_words in dictionary:
+            get_lastword = random.choice(dictionary[last_words])
+
+            story.append(get_lastword)
+        else:
+            rand_key = random.choice(dictionary.keys())
+            rand_value = random.choice(dictionary[rand_key])
+            first_stringify = str(rand_key[0])
+            second_stringify = str(rand_key[1])
+            story.extend([first_stringify, second_stringify, rand_value])
+    return " ".join(story)
+
+
+def main(path, num_words):
     file = io.open(path, encoding='utf-8')
     read_file = file.read()
-    return make_trigram(read_file)
-    # print split_text(read_file)
+    trigrams = make_trigram(read_file)
+    random_story = make_story(trigrams, num_words)
+    print random_story
 
-main('test.txt')
+
+main('test.txt', 100)
