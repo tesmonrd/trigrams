@@ -10,12 +10,7 @@ def make_trigram(text):
         split_words = text.split(" ", 3)
         our_keys = (split_words[0], split_words[1])
         our_value = split_words[2]
-        if our_keys not in tri_dict:
-            tri_dict[our_keys] = [our_value]
-        else:
-            new_value = tri_dict.get(our_keys)
-            new_value.append(our_value)
-            tri_dict[our_keys] = new_value
+        tri_dict.setdefault(our_keys, []).append(our_value)
         length = len(split_words[0]) + 1
         text = text[length:]
     return tri_dict
