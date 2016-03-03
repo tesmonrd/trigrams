@@ -27,6 +27,7 @@ def rand_words(dictionary, story):
     second = str(rand_key[1])
     third = random.choice(dictionary[rand_key])
     story.extend([first, second, third])
+    return story
 
 
 def make_story(dictionary, num_words):
