@@ -49,13 +49,21 @@ def main(path, num_words):
     """Process make_trigram and make_story to create new story."""
     file = io.open(path, encoding='utf-8')
     read_file = file.read()
+    file.close()
     trigrams = make_trigram(read_file)
     random_story = make_story(trigrams, num_words)
     print random_story
 
 
-if __name__ == "__main__":
-    if len(sys.argv) < 3:
+def clean_cli(argv):
+    if len(argv) != 3:
         print "You didn't give us a file and a number"
         sys.exit(1)
-    main(sys.argv[1], int(sys.argv[2]))
+    filename = argv[1]
+    num_words = int(argv[2])
+    return filename, num_words
+
+
+if __name__ == "__main__":
+    filename, num_words = clean_cli(sys.argv)
+    main(filename, num_words)
