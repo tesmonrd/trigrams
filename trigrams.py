@@ -21,14 +21,18 @@ def make_trigram(text):
     return tri_dict
 
 
+def rand_words(dictionary, story):
+    rand_key = random.choice(dictionary.keys())
+    first = str(rand_key[0])
+    second = str(rand_key[1])
+    third = random.choice(dictionary[rand_key])
+    story.extend([first, second, third])
+
+
 def make_story(dictionary, num_words):
     """Use dictionary to create story that is num_words long."""
     story = []
-    rand_key = random.choice(dictionary.keys())
-    rand_value = random.choice(dictionary[rand_key])
-    first_stringify = str(rand_key[0])
-    second_stringify = str(rand_key[1])
-    story.extend([first_stringify, second_stringify, rand_value])
+    rand_words(dictionary, story)
     while len(story) < num_words:
         last_words = (story[-2], story[-1])
         if last_words in dictionary:
@@ -36,16 +40,12 @@ def make_story(dictionary, num_words):
 
             story.append(get_lastword)
         else:
-            rand_key = random.choice(dictionary.keys())
-            rand_value = random.choice(dictionary[rand_key])
-            first_stringify = str(rand_key[0])
-            second_stringify = str(rand_key[1])
-            story.extend([first_stringify, second_stringify, rand_value])
+            rand_words(dictionary, story)
     return " ".join(story)
 
 
 def main(path, num_words):
-    """Process make_trigram and make_story to creat new story."""
+    """Process make_trigram and make_story to create new story."""
     file = io.open(path, encoding='utf-8')
     read_file = file.read()
     trigrams = make_trigram(read_file)
