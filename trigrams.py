@@ -45,6 +45,7 @@ def make_story(dictionary, num_words):
 
 
 def main(path, num_words):
+    """Process make_trigram and make_story to creat new story."""
     file = io.open(path, encoding='utf-8')
     read_file = file.read()
     trigrams = make_trigram(read_file)
