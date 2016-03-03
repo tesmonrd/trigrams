@@ -22,6 +22,7 @@ def make_trigram(text):
 
 
 def rand_words(dictionary, story):
+    """Get a random key from dictionary and add key/value to story."""
     rand_key = random.choice(dictionary.keys())
     first = str(rand_key[0])
     second = str(rand_key[1])
@@ -45,12 +46,18 @@ def make_story(dictionary, num_words):
     return " ".join(story)
 
 
+def read_file(fh):
+    """Read a file and return the text."""
+    file = io.open(fh, encoding='utf-8')
+    file_text = file.read()
+    file.close()
+    return file_text
+
+
 def main(path, num_words):
     """Process make_trigram and make_story to create new story."""
-    file = io.open(path, encoding='utf-8')
-    read_file = file.read()
-    file.close()
-    trigrams = make_trigram(read_file)
+    text = read_file(path)
+    trigrams = make_trigram(text)
     random_story = make_story(trigrams, num_words)
     print random_story
 
